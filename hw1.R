@@ -8,6 +8,8 @@ plot(density(loan$loan_amnt))
 plot(density(loan$int_rate))
 length(which(is.na(loan)))
 
+# Checking the percentage of missing value and missing pattern 
+
 library(mice)
 md.pattern(loan)
 
@@ -26,6 +28,8 @@ table(missing)
 
 names(missing[which(missing > 50)])
 str(loan)
+
+# Plot continuous variables vs. interest rate (continuous)
 
 library(corrplot)
 library(dplyr)
@@ -46,6 +50,7 @@ int_rate_corr <- sort(int_rate_corr, decreasing = T)
 int_rate_corr <- as.data.frame(int_rate_corr)
 barplot(int_rate_corr$int_rate_corr, names.arg = rownames(int_rate_corr))
 
+# Plot categorical variables(common) vs. interest rate (continuous)
 
 library(ggplot2)
 colnames(loan.chr)
@@ -58,7 +63,7 @@ bwplot(int_rate~purpose, data = loan)
 bwplot(int_rate~addr_state, data = loan)
 bwplot(int_rate~initial_list_status, data = loan)
 
-
+# Plot categorical variables(special [date]) vs. interest rate (continuous)
 
 library(zoo)
 as.Date(as.yearmon(loan$issue_d[1:5], "%b-%Y"))
